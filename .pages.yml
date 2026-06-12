@@ -1,103 +1,176 @@
-# .pages.yml
+# PagesCMS Configuration for Jekyll Chirpy Theme
 media:
-  input: assets/img/
-  output: /assets/img/
+  input: assets/img # Chirpy görselleri genellikle buraya yüklenir
+  output: /assets/img
 
 collections:
-  # ----------------------------------------------------------------
-  # 1. POSTS (The main blogging content for Chirpy)
-  # ----------------------------------------------------------------
-  - name: posts
-    label: Posts
-    description: Manage your Chirpy blog posts.
+  # ==========================================
+  # 1. BLOG YAZILARI (POSTS)
+  # ==========================================
+  - id: posts
+    label: Yazılar (Posts)
+    description: Blog yazılarınızı buradan ekleyebilir ve düzenleyebilirsiniz.
     type: collection
-    path: _posts/
-    extension: md
-    format: yml-frontmatter
-    slug: "{{year}}-{{month}}-{{day}}-{{title}}"
+    path: _posts
+    format: json-frontmatter # Chirpy genellikle YAML front matter kullanır, markdown formatında saklar
+    filename: '{year}-{month}-{day}-{slug}.md'
     fields:
-      - name: title
-        label: Title
+      - id: title
+        label: Başlık
         type: string
         required: true
-      - name: date
-        label: Date
+      - id: date
+        label: Yayınlanma Tarihi
         type: datetime
         required: true
-      - name: categories
-        label: Categories
+      - id: description
+        label: Kısa Açıklama (Snippet)
+        type: string
+        description: Arama sonuçlarında ve ana sayfada görünecek kısa özet.
+      - id: categories
+        label: Kategoriler
         type: list
-        description: Hierarchical categories, max 2 items. e.g., [Blogging, Tutorial]
-      - name: tags
-        label: Tags
+        description: En fazla 2 seviye (örn. [Teknoloji, Yapay Zeka])
+        field:
+          type: string
+      - id: tags
+        label: Etiketler
         type: list
-        description: Lowercase tags for the post, e.g., [jekyll, configuration]
-      - name: image
-        label: Cover Image
+        field:
+          type: string
+      - id: image
+        label: Öne Çıkan Görsel
         type: object
         fields:
-          - name: path
-            label: Image Path
+          - id: path
+            label: Görsel Yolu
             type: image
-          - name: alt
-            label: Alternative Text
+          - id: alt
+            label: Alternatif (Alt) Metin
             type: string
-      - name: pin
-        label: Pin to Home
+          - id: lqip
+            label: LQIP (Düşük Kaliteli Önizleme - Base64)
+            type: string
+            description: 'İsteğe bağlı: blur efekti için'
+      - id: pin
+        label: Ana Sayfaya Sabitle
         type: boolean
         default: false
-      - name: body
-        label: Post Content
-        type: rich-text
+      - id: toc
+        label: İçindekiler Tablosunu Göster (TOC)
+        type: boolean
+        default: true
+      - id: comments
+        label: Yorumları Aktif Et
+        type: boolean
+        default: true
+      - id: math
+        label: Matematik Formülleri (MathJax)
+        type: boolean
+        default: false
+      - id: mermaid
+        label: Diyagramlar (Mermaid.js)
+        type: boolean
+        default: false
+      - id: body
+        label: Yazı İçeriği
+        type: markdown
+        required: true
 
-  # ----------------------------------------------------------------
-  # 2. TABS / PAGES (About, Categories, Tags, Archives)
-  # ----------------------------------------------------------------
-  - name: tabs
-    label: Tabs & Pages
-    description: Edit static pages like your 'About' tab.
+  # ==========================================
+  # 2. SABİT SAYFALAR (PAGES)
+  # ==========================================
+  - id: pages
+    label: Sayfalar (Pages)
+    description: Hakkımda, İletişim gibi sabit sayfalar.
     type: collection
-    path: tabs/
-    extension: md
-    format: yml-frontmatter
+    path: /
+    files: '*.md'
     fields:
-      - name: title
-        label: Title
+      - id: title
+        label: Sayfa Başlığı
         type: string
         required: true
-      - name: icon
-        label: Sidebar Icon (FontAwesome class)
+      - id: layout
+        label: Şablon (Layout)
+        type: choice
+        default: page
+        choices:
+          - { label: 'Standart Sayfa', value: 'page' }
+          - { label: 'Arşiv', value: 'archives' }
+          - { label: 'Kategoriler', value: 'categories' }
+          - { label: 'Etiketler', value: 'tags' }
+          - { label: 'Ana Sayfa', value: 'home' }
+      - id: permalink
+        label: Kalıcı Bağlantı (URL)
         type: string
-        description: e.g., fas fa-info-circle
-      - name: order
-        label: Sidebar Navigation Order
-        type: number
-      - name: body
-        label: Page Content
-        type: rich-text
+        required: true
+        description: 'Örn: /about/ veya /contact/'
+      - id: description
+        label: Sayfa Açıklaması (SEO)
+        type: string
+      - id: body
+        label: Sayfa İçeriği
+        type: markdown
+        required: true
 
-  # ----------------------------------------------------------------
-  # 3. GLOBAL CONFIGURATION (_config.yml)
-  # ----------------------------------------------------------------
-  - name: settings
-    label: Settings
-    description: Main Jekyll configuration variables.
-    type: file
-    path: _config.yml
-    format: yml
-    fields:
-      - name: title
-        label: Site Title
-        type: string
-      - name: tagline
-        label: Tagline
-        type: string
-      - name: description
-        label: SEO Description
-        type: string
-      - name: url
-        label: Production URL
-        type: string
-      - name: author
-        label: Author Name
-        type: string
+  # ==========================================
+  # 3. CHIRPY TEMA AYARLARI (CONFIG)
+  # ==========================================
+  - id: settings
+    label: Site ve Tema Ayarları
+    type: files
+    files:
+      - id: config
+        label: Genel Ayarlar (_config.yml)
+        path: _config.yml
+        format: yaml
+        fields:
+          - id: title
+            label: Site Adı
+            type: string
+          - id: tagline
+            label: Site Sloganı
+            type: string
+          - id: description
+            label: Site Açıklaması (SEO)
+            type: string
+          - id: url
+            label: Site URL (https://...)
+            type: string
+          - id: author
+            label: Yazar Adı
+            type: string
+          - id: avatar
+            label: Profil Resmi (Avatar URL)
+            type: string
+          - id: timezone
+            label: Zaman Dilimi
+            type: string
+            description: 'Örn: Europe/Istanbul'
+          - id: lang
+            label: Site Dili
+            type: string
+            default: tr
+          - id: theme_mode
+            label: Tema Modu
+            type: choice
+            default: light
+            choices:
+              - { label: 'Açık Mod (Light)', value: 'light' }
+              - { label: 'Koyu Mod (Dark)', value: 'dark' }
+
+      - id: navigation
+        label: Yan Menü Sosyal Linkleri (_data/share.yml vb.)
+        path: _data/contact.yml
+        format: yaml
+        fields:
+          - id: email
+            label: E-posta Adresi
+            type: string
+          - id: twitter
+            label: Twitter Kullanıcı Adı
+            type: string
+          - id: github
+            label: GitHub Kullanıcı Adı
+            type: string
