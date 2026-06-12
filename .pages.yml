@@ -11,7 +11,7 @@ collections:
     label: Yazılar (Posts)
     description: Blog yazılarınızı buradan ekleyebilir ve düzenleyebilirsiniz.
     type: collection
-    path: _posts
+    path: /_posts/
     format: json-frontmatter # Chirpy genellikle YAML front matter kullanır, markdown formatında saklar
     filename: '{year}-{month}-{day}-{slug}.md'
     fields:
