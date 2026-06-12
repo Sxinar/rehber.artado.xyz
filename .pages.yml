@@ -1,18 +1,18 @@
-# PagesCMS Configuration for Jekyll Chirpy Theme
+# PagesCMS Optimize Edilmiş Yapılandırma
 media:
-  input: assets/img # Chirpy görselleri genellikle buraya yüklenir
+  input: assets/img
   output: /assets/img
 
 collections:
   # ==========================================
-  # 1. BLOG YAZILARI (POSTS)
+  # 1. BLOG YAZILARI (POSTS) - Yeniden Optimize Edildi
   # ==========================================
   - id: posts
     label: Yazılar (Posts)
     description: Blog yazılarınızı buradan ekleyebilir ve düzenleyebilirsiniz.
     type: collection
-    path: /_posts/
-    format: json-frontmatter # Chirpy genellikle YAML front matter kullanır, markdown formatında saklar
+    path: _posts # Eğer yine gelmezse burayı /_posts yapıp deneyin
+    files: '*.md' # Klasördeki tüm markdown dosyalarını zorunlu tara
     filename: '{year}-{month}-{day}-{slug}.md'
     fields:
       - id: title
@@ -26,11 +26,9 @@ collections:
       - id: description
         label: Kısa Açıklama (Snippet)
         type: string
-        description: Arama sonuçlarında ve ana sayfada görünecek kısa özet.
       - id: categories
         label: Kategoriler
         type: list
-        description: En fazla 2 seviye (örn. [Teknoloji, Yapay Zeka])
         field:
           type: string
       - id: tags
@@ -46,30 +44,10 @@ collections:
             label: Görsel Yolu
             type: image
           - id: alt
-            label: Alternatif (Alt) Metin
+            label: Alternatif Metin
             type: string
-          - id: lqip
-            label: LQIP (Düşük Kaliteli Önizleme - Base64)
-            type: string
-            description: 'İsteğe bağlı: blur efekti için'
       - id: pin
         label: Ana Sayfaya Sabitle
-        type: boolean
-        default: false
-      - id: toc
-        label: İçindekiler Tablosunu Göster (TOC)
-        type: boolean
-        default: true
-      - id: comments
-        label: Yorumları Aktif Et
-        type: boolean
-        default: true
-      - id: math
-        label: Matematik Formülleri (MathJax)
-        type: boolean
-        default: false
-      - id: mermaid
-        label: Diyagramlar (Mermaid.js)
         type: boolean
         default: false
       - id: body
@@ -82,9 +60,8 @@ collections:
   # ==========================================
   - id: pages
     label: Sayfalar (Pages)
-    description: Hakkımda, İletişim gibi sabit sayfalar.
     type: collection
-    path: /
+    path: ./ # Kök dizini taraması için esnekleştirildi
     files: '*.md'
     fields:
       - id: title
@@ -100,77 +77,11 @@ collections:
           - { label: 'Arşiv', value: 'archives' }
           - { label: 'Kategoriler', value: 'categories' }
           - { label: 'Etiketler', value: 'tags' }
-          - { label: 'Ana Sayfa', value: 'home' }
       - id: permalink
         label: Kalıcı Bağlantı (URL)
         type: string
         required: true
-        description: 'Örn: /about/ veya /contact/'
-      - id: description
-        label: Sayfa Açıklaması (SEO)
-        type: string
       - id: body
         label: Sayfa İçeriği
         type: markdown
         required: true
-
-  # ==========================================
-  # 3. CHIRPY TEMA AYARLARI (CONFIG)
-  # ==========================================
-  - id: settings
-    label: Site ve Tema Ayarları
-    type: files
-    files:
-      - id: config
-        label: Genel Ayarlar (_config.yml)
-        path: _config.yml
-        format: yaml
-        fields:
-          - id: title
-            label: Site Adı
-            type: string
-          - id: tagline
-            label: Site Sloganı
-            type: string
-          - id: description
-            label: Site Açıklaması (SEO)
-            type: string
-          - id: url
-            label: Site URL (https://...)
-            type: string
-          - id: author
-            label: Yazar Adı
-            type: string
-          - id: avatar
-            label: Profil Resmi (Avatar URL)
-            type: string
-          - id: timezone
-            label: Zaman Dilimi
-            type: string
-            description: 'Örn: Europe/Istanbul'
-          - id: lang
-            label: Site Dili
-            type: string
-            default: tr
-          - id: theme_mode
-            label: Tema Modu
-            type: choice
-            default: light
-            choices:
-              - { label: 'Açık Mod (Light)', value: 'light' }
-              - { label: 'Koyu Mod (Dark)', value: 'dark' }
-
-      - id: navigation
-        label: Yan Menü Sosyal Linkleri (_data/share.yml vb.)
-        path: _data/contact.yml
-        format: yaml
-        fields:
-          - id: email
-            label: E-posta Adresi
-            type: string
-          - id: twitter
-            label: Twitter Kullanıcı Adı
-            type: string
-          - id: github
-            label: GitHub Kullanıcı Adı
-            type: string
