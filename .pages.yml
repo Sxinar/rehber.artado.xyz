@@ -1,31 +1,29 @@
-# PagesCMS Optimize Edilmiş Yapılandırma
+# PagesCMS Süper Esnek ve Garanti Modifikasyonu
 media:
   input: assets/img
   output: /assets/img
 
 collections:
   # ==========================================
-  # 1. BLOG YAZILARI (POSTS) - Yeniden Optimize Edildi
+  # 1. BLOG YAZILARI (Zorlamasız Doğrudan Erişim)
   # ==========================================
   - id: posts
     label: Yazılar (Posts)
-    description: Blog yazılarınızı buradan ekleyebilir ve düzenleyebilirsiniz.
     type: collection
-    path: _posts # Eğer yine gelmezse burayı /_posts yapıp deneyin
-    files: '*.md' # Klasördeki tüm markdown dosyalarını zorunlu tara
-    filename: '{year}-{month}-{day}-{slug}.md'
+    path: _posts # Eğer yine gelmezse alt adımdaki 1. maddeye bakın
+    # filename ve format zorunlulukları kaldırıldı, hata payı sıfıra indirildi
     fields:
       - id: title
         label: Başlık
         type: string
         required: true
-      - id: date
-        label: Yayınlanma Tarihi
-        type: datetime
-        required: true
-      - id: description
-        label: Kısa Açıklama (Snippet)
+      - id: layout
+        label: Şablon
         type: string
+        default: post
+      - id: date
+        label: Tarih
+        type: datetime
       - id: categories
         label: Kategoriler
         type: list
@@ -36,52 +34,7 @@ collections:
         type: list
         field:
           type: string
-      - id: image
-        label: Öne Çıkan Görsel
-        type: object
-        fields:
-          - id: path
-            label: Görsel Yolu
-            type: image
-          - id: alt
-            label: Alternatif Metin
-            type: string
-      - id: pin
-        label: Ana Sayfaya Sabitle
-        type: boolean
-        default: false
       - id: body
-        label: Yazı İçeriği
-        type: markdown
-        required: true
-
-  # ==========================================
-  # 2. SABİT SAYFALAR (PAGES)
-  # ==========================================
-  - id: pages
-    label: Sayfalar (Pages)
-    type: collection
-    path: ./ # Kök dizini taraması için esnekleştirildi
-    files: '*.md'
-    fields:
-      - id: title
-        label: Sayfa Başlığı
-        type: string
-        required: true
-      - id: layout
-        label: Şablon (Layout)
-        type: choice
-        default: page
-        choices:
-          - { label: 'Standart Sayfa', value: 'page' }
-          - { label: 'Arşiv', value: 'archives' }
-          - { label: 'Kategoriler', value: 'categories' }
-          - { label: 'Etiketler', value: 'tags' }
-      - id: permalink
-        label: Kalıcı Bağlantı (URL)
-        type: string
-        required: true
-      - id: body
-        label: Sayfa İçeriği
+        label: İçerik
         type: markdown
         required: true
