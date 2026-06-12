@@ -1,0 +1,103 @@
+# .pages.yml
+media:
+  input: assets/img/
+  output: /assets/img/
+
+collections:
+  # ----------------------------------------------------------------
+  # 1. POSTS (The main blogging content for Chirpy)
+  # ----------------------------------------------------------------
+  - name: posts
+    label: Posts
+    description: Manage your Chirpy blog posts.
+    type: collection
+    path: _posts/
+    extension: md
+    format: yml-frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{title}}"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: date
+        label: Date
+        type: datetime
+        required: true
+      - name: categories
+        label: Categories
+        type: list
+        description: Hierarchical categories, max 2 items. e.g., [Blogging, Tutorial]
+      - name: tags
+        label: Tags
+        type: list
+        description: Lowercase tags for the post, e.g., [jekyll, configuration]
+      - name: image
+        label: Cover Image
+        type: object
+        fields:
+          - name: path
+            label: Image Path
+            type: image
+          - name: alt
+            label: Alternative Text
+            type: string
+      - name: pin
+        label: Pin to Home
+        type: boolean
+        default: false
+      - name: body
+        label: Post Content
+        type: rich-text
+
+  # ----------------------------------------------------------------
+  # 2. TABS / PAGES (About, Categories, Tags, Archives)
+  # ----------------------------------------------------------------
+  - name: tabs
+    label: Tabs & Pages
+    description: Edit static pages like your 'About' tab.
+    type: collection
+    path: tabs/
+    extension: md
+    format: yml-frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: icon
+        label: Sidebar Icon (FontAwesome class)
+        type: string
+        description: e.g., fas fa-info-circle
+      - name: order
+        label: Sidebar Navigation Order
+        type: number
+      - name: body
+        label: Page Content
+        type: rich-text
+
+  # ----------------------------------------------------------------
+  # 3. GLOBAL CONFIGURATION (_config.yml)
+  # ----------------------------------------------------------------
+  - name: settings
+    label: Settings
+    description: Main Jekyll configuration variables.
+    type: file
+    path: _config.yml
+    format: yml
+    fields:
+      - name: title
+        label: Site Title
+        type: string
+      - name: tagline
+        label: Tagline
+        type: string
+      - name: description
+        label: SEO Description
+        type: string
+      - name: url
+        label: Production URL
+        type: string
+      - name: author
+        label: Author Name
+        type: string
