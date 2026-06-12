@@ -5,6 +5,9 @@ backend:
   base_url: https://sveltia-cms-auth.basaranuse.workers.dev
   auth_endpoint: auth
 
+# 🚨 1. ADIM: ONAY SİSTEMİNİ DEVREYE ALIYORUZ (Hesap hatasını çözen anahtar)
+publish_mode: editorial_workflow
+
 media_folder: "assets/img/uploads"
 public_folder: "/assets/img/uploads"
 
@@ -33,16 +36,20 @@ collections:
       - { label: "Yazı Özeti (Description)", name: "description", widget: "string", required: false }
       - { label: "Tarih", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss Z" }
       
+      # Chirpy uyumlu düz liste haline getirildi
       - label: "Kategoriler"
         name: "categories"
         widget: "list"
+        summary: '{{fields.category}}'
         field: { label: "Kategori Adı", name: "category", widget: "string" }
         min: 1
         max: 2
       
+      # Chirpy uyumlu düz liste haline getirildi
       - label: "Etiketler (Tags)"
         name: "tags"
         widget: "list"
+        summary: '{{fields.tag}}'
         field: { label: "Etiket Adı", name: "tag", widget: "string" }
 
       - label: "Öne Çıkan Görsel"
@@ -54,15 +61,11 @@ collections:
           - { label: "Alt Metni", name: "alt", widget: "string", required: false }
           - { label: "Lqip (Blur efekti)", name: "lqip", widget: "string", required: false }
 
-      - label: "Ekstra Ayarlar"
-        name: "settings"
-        widget: "object"
-        collapsed: true
-        fields:
-          - { label: "Yayınla", name: "published", widget: "boolean", default: true }
-          - { label: "Pinle", name: "pin", widget: "boolean", default: false }
-          - { label: "Matematik (MathJax)", name: "math", widget: "boolean", default: false }
-          - { label: "İçindekiler Tablosu (TOC)", name: "toc", widget: "boolean", default: true }
+      # 🚨 Chirpy'nin doğrudan okuyabilmesi için ayarlar ana katmana taşındı
+      - { label: "Yayınla (Published)", name: "published", widget: "boolean", default: true }
+      - { label: "Ana Sayfaya Sabitle (Pin)", name: "pin", widget: "boolean", default: false }
+      - { label: "Matematik (MathJax)", name: "math", widget: "boolean", default: false }
+      - { label: "İçindekiler Tablosu (TOC)", name: "toc", widget: "boolean", default: true }
       
       - { label: "İçerik", name: "body", widget: "markdown" }
 
@@ -84,7 +87,7 @@ collections:
       - { label: "İçerik", name: "body", widget: "markdown" }
 
   # -------------------------------------------------------------------------
-  # VERİ VE AYARLAR (Burayı geri ekledim ama daha düzenli hale getirdim)
+  # VERİ VE AYARLAR
   # -------------------------------------------------------------------------
   - name: "settings"
     label: "Sistem Ayarları"
@@ -93,7 +96,7 @@ collections:
       - name: "navigation"
         label: "Sol Menü (_data/navigation.yml)"
         file: "_data/navigation.yml"
-        format: "yaml" # Raw yerine direkt YAML olarak düzenlemek daha hatasızdır
+        format: "yaml"
         fields:
           - label: "Menü Linkleri"
             name: "items"
