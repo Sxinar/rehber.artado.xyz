@@ -1,39 +1,14 @@
-# Chirpy Starter
+# Teknoloji Rehberleri Websitesi
+[https://teknolojirehberleri.xyz](https://teknolojirehberleri.xyz)
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+Herkesin teknoloji rehberi yazabildiği bir websitesi. İzleyici, reklam veya çerez yok.
 
-A minimal, ready-to-use template for creating a blog with the [**Chirpy**][chirpy] Jekyll theme. Get up and running in minutes with all critical files pre-configured.
 
-## Why This Starter Exists
-
-When installing Chirpy through [RubyGems.org][gem], Jekyll can only read a subset of theme files (`_data`, `_layouts`, `_includes`, `_sass`, `assets`) and limited `_config.yml` options from the gem. As a result, users cannot enjoy the full out-of-the-box experience that Chirpy offers.
-
-To unlock all features, the following files must be present in your Jekyll site:
-
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
-```
-
-This starter bundles those files from the latest **Chirpy** release along with a [CD][CD] workflow, so you can start writing immediately.
-
-## Usage
-
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
-
-## Contributing
-
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
-
-## License
-
-This work is published under [MIT][mit] License.
-
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+## Rehber Ekleme Kuralları
+- Rehberinizi markdown dosyası olarak yazacaksınız. [ÖRNEK.md](ÖRNEK.md) dosyasına lütfen göz atın.
+- Rehberiniz başlık ile başlamalıdır.
+- Rehberler size ait olmalıdır.
+- Hazırladığınız md dosyasını [teknolojirehberleri@protonmail.com](mailto:teknolojirehberleri@protonmail.com) adresine gönderin.
+- Veya rehberinizi, [rehberler](https://github.com/yusufipk/teknolojirehberleri.xyz/tree/master/rehberler) klasörüne ekleyin.
+- Güncellemek istediğiniz bir [rehberi](https://github.com/yusufipk/teknolojirehberleri.xyz/tree/master/rehberler) indirip, düzenledikten sonra kendi adınızı da ekleyerek paylaşabilirsiniz.
+- Rehberin sonuna kendi websitenizi veya bağış bağlantınızı koyabilirsiniz. 
