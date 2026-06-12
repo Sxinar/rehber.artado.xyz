@@ -1,0 +1,105 @@
+backend:
+  name: github
+  repo: Sxinar/rehber.artado.xyz
+  branch: main
+  base_url: https://sveltia-cms-auth.basaranuse.workers.dev
+  auth_endpoint: auth
+
+media_folder: "assets/img/uploads"
+public_folder: "/assets/img/uploads"
+
+slug:
+  encoding: "ascii"
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  # -------------------------------------------------------------------------
+  # BLOG YAZILARI
+  # -------------------------------------------------------------------------
+  - name: "posts"
+    label: "Blog Yazıları"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    sortable_fields: ['date', 'title']
+    view_groups:
+      - label: Yıl
+        field: date
+        pattern: \d{4}
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "post" }
+      - { label: "Başlık", name: "title", widget: "string" }
+      - { label: "Yazı Özeti (Description)", name: "description", widget: "string", required: false }
+      - { label: "Tarih", name: "date", widget: "datetime", format: "YYYY-MM-DD HH:mm:ss Z" }
+      
+      - label: "Kategoriler"
+        name: "categories"
+        widget: "list"
+        field: { label: "Kategori Adı", name: "category", widget: "string" }
+        min: 1
+        max: 2
+      
+      - label: "Etiketler (Tags)"
+        name: "tags"
+        widget: "list"
+        field: { label: "Etiket Adı", name: "tag", widget: "string" }
+
+      - label: "Öne Çıkan Görsel"
+        name: "image"
+        widget: "object"
+        required: false
+        fields:
+          - { label: "Resim Dosyası", name: "path", widget: "image" }
+          - { label: "Alt Metni", name: "alt", widget: "string", required: false }
+          - { label: "Lqip (Blur efekti)", name: "lqip", widget: "string", required: false }
+
+      - label: "Ekstra Ayarlar"
+        name: "settings"
+        widget: "object"
+        collapsed: true
+        fields:
+          - { label: "Yayınla", name: "published", widget: "boolean", default: true }
+          - { label: "Pinle", name: "pin", widget: "boolean", default: false }
+          - { label: "Matematik (MathJax)", name: "math", widget: "boolean", default: false }
+          - { label: "İçindekiler Tablosu (TOC)", name: "toc", widget: "boolean", default: true }
+      
+      - { label: "İçerik", name: "body", widget: "markdown" }
+
+  # -------------------------------------------------------------------------
+  # SAYFALAR
+  # -------------------------------------------------------------------------
+  - name: "pages"
+    label: "Sayfalar"
+    folder: "_tabs"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - { label: "Layout", name: "layout", widget: "hidden", default: "page" }
+      - { label: "Sayfa Başlığı", name: "title", widget: "string" }
+      - { label: "Özel URL (Permalink)", name: "permalink", widget: "string", required: false }
+      - { label: "Simge (FontAwesome)", name: "icon", widget: "string", required: false }
+      - { label: "Sıralama (Order)", name: "order", widget: "number", required: false }
+      - { label: "İçerik", name: "body", widget: "markdown" }
+
+  # -------------------------------------------------------------------------
+  # VERİ VE AYARLAR (Burayı geri ekledim ama daha düzenli hale getirdim)
+  # -------------------------------------------------------------------------
+  - name: "settings"
+    label: "Sistem Ayarları"
+    delete: false
+    files:
+      - name: "navigation"
+        label: "Sol Menü (_data/navigation.yml)"
+        file: "_data/navigation.yml"
+        format: "yaml" # Raw yerine direkt YAML olarak düzenlemek daha hatasızdır
+        fields:
+          - label: "Menü Linkleri"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "Başlık", name: "title", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "İkon", name: "icon", widget: "string" }
+              - { label: "Sıra", name: "order", widget: "number" }
