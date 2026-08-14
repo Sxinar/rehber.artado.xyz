@@ -101,7 +101,7 @@ echo t > /proc/sysrq-trigger
 Birden fazla karakterin geçerli olması için harf dizgisinin başına alt tire (`_`) konur.
 Böylece sayı dizisindeki bütün harfler işlenir.
 
-```plain
+```bash
 echo _reisub > /proc/sysrq-trigger
 ```
 
